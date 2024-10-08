@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 use App\Service\HelloService;
+use App\Service\DateTimeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class HelloController extends AbstractController
 {
-    public function __construct(private readonly HelloService $helloService)
+    public function __construct(private readonly HelloService $helloService, private DateTimeService $dateTimeService)
     {
 
     }
@@ -27,5 +28,27 @@ class HelloController extends AbstractController
     public function checkLuckyNumber(string $number): Response
     {
         return new Response("Lucky number: " . $number);
+    }
+
+    #[Route('/random-greeting')]
+    public function randomGreeting(): Response
+    {
+        $greetings = [
+            'Привет!',
+            'Здравствуйте!',
+            'Добрый день!',
+            'Хай!',
+            'Салют!'
+        ];
+        
+        $randomGreeting = $greetings[array_rand($greetings)];
+        return new Response($randomGreeting);
+    }
+
+    #[Route('/current-datetime')]
+    public function currentDateTime(): Response
+    {
+        $currentDateTime = $this->dateTimeService->getCurrentDateTime();
+        return new Response("Текущая дата и время: $currentDateTime");
     }
 }
