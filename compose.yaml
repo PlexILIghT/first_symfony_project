@@ -27,7 +27,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: apphello
     ports:
-      - "3306"
+      - "3307:3306"
     networks:
       - app-network
 
@@ -67,4 +67,3 @@ networks:
 # secrets:
 #   db-password:
 #     file: db/password.txt
-
