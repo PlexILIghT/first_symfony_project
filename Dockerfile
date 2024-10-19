@@ -20,6 +20,8 @@ RUN composer require symfony/maker-bundle
 
 WORKDIR /var/www
 
+RUN chown -R www-data:www-data /var/www
+
 COPY . .
 
-CMD ["symfony", "server:start"]
+CMD ["symfony", "server:start", "--no-tls", "--allow-http", "--port=8000", "--address=0.0.0.0"]
