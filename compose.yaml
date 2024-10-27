@@ -19,7 +19,8 @@ services:
       - app-network
     ports:
       - "8000:8000"
-
+    expose:
+      - 8000
   db:
     image: mysql:5.7
     restart: always
@@ -27,13 +28,14 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: apphello
     ports:
-      - "3306:3306"
+      - "3307:3307"
     networks:
       - app-network
 
 networks:
   app-network:
     driver: bridge
+
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to

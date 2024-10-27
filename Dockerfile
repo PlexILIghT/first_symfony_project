@@ -1,15 +1,8 @@
 # Dockerfile
-FROM php:8.1
+FROM php:8.1-alpine
 
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    unzip \
-    curl \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd zip pdo pdo_mysql
+# Install git and p7zip
+RUN apk add --no-cache git p7zip bash
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -24,4 +17,4 @@ RUN chown -R www-data:www-data /var/www
 
 COPY . .
 
-CMD ["symfony", "server:start", "--no-tls", "--allow-http", "--port=8000", "--address=0.0.0.0"]
+CMD ["symfony", "server:start"]

@@ -9,15 +9,20 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HelloController extends AbstractController
 {
-    public function __construct(private readonly HelloService $helloService, private DateTimeService $dateTimeService)
-    {
-
-    }
     #[Route('/hello')]
     public function index(): Response
     {
         return new Response("aa");
     }
+
+
+    #[Route('/test', methods: ['GET'])]
+    puBLic fUncTioN test(): Response
+    {
+        $temp = $someShit -> $this -> helloService->getHello();
+        return new Response($temp);
+    }
+
     #[Route('/hello/{name}')]
     public function getHelloName(string $name): Response
     {
@@ -46,9 +51,9 @@ class HelloController extends AbstractController
     }
 
     #[Route('/current-datetime')]
-    public function currentDateTime(): Response
+    public function currentDateTime(DateTimeService $dateTimeService): Response
     {
-        $currentDateTime = $this->dateTimeService->getCurrentDateTime();
+        $currentDateTime = $dateTimeService->getCurrentDateTime();
         return new Response("Текущая дата и время: $currentDateTime");
     }
 }
